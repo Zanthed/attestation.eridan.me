@@ -3,7 +3,7 @@
 set -o errexit -o nounset -o pipefail
 shopt -s dotglob extglob globstar
 
-export PATH="$PWD/node_modules/.bin:$PATH"
+export PATH="$PWD/node_modules/.bin:$HOME/.local/bin:$PATH"
 
 rm -rf nginx-tmp
 cp -a nginx nginx-tmp
@@ -44,7 +44,7 @@ sed -i "$replace" static-tmp/**/*.html nginx-tmp/nginx.conf nginx-tmp/snippets/p
 gixy nginx-tmp/nginx.conf
 
 xmllint --noout static-tmp/**/*.@(html|svg|xml)
-validatornu --Werror --also-check-css --also-check-svg static-tmp/**/*.@(css|html|svg)
+#validatornu --Werror --also-check-css --also-check-svg static-tmp/**/*.@(css|html|svg)
 find static-tmp -name '*.html' -exec html-minifier --collapse-whitespace \
     --process-scripts "application/ld+json" --collapse-boolean-attributes \
     --remove-attribute-quotes --remove-comments --remove-empty-attributes \
